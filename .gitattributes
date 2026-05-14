@@ -1,0 +1,5 @@
+# Force GitHub to see this as a Python project
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.js linguist-detectable=false
+main.py linguist-detectable=true

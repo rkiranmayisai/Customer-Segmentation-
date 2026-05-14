@@ -1,0 +1,31 @@
+customerID,gender,tenure,MonthlyCharges,Contract,Churn
+1,Female,1,29.85,Month-to-month,No
+2,Male,34,56.95,One year,No
+3,Male,2,53.85,Month-to-month,Yes
+4,Male,45,42.3,One year,No
+5,Female,2,70.7,Month-to-month,Yes
+6,Female,8,99.65,Month-to-month,Yes
+7,Male,22,89.1,Month-to-month,No
+8,Female,10,29.75,Month-to-month,No
+9,Female,28,104.8,Month-to-month,Yes
+10,Male,62,56.7,One year,No
+11,Male,13,49.95,Month-to-month,No
+12,Male,16,18.95,Two year,No
+13,Male,58,100.35,One year,No
+14,Female,49,103.7,Month-to-month,Yes
+15,Male,25,105.5,Month-to-month,No
+16,Female,69,113.25,Two year,No
+17,Female,52,20.65,One year,No
+18,Male,71,106.7,Two year,No
+19,Female,10,29.75,Month-to-month,No
+20,Female,21,97.45,Month-to-month,No
+21,Male,1,39.65,Month-to-month,Yes
+22,Male,12,19.8,One year,No
+23,Male,1,20.15,Month-to-month,No
+24,Female,58,59.9,Two year,No
+25,Male,49,59.6,Month-to-month,No
+26,Female,30,55.3,Month-to-month,No
+27,Male,47,99.35,Month-to-month,Yes
+28,Male,1,30.2,Month-to-month,Yes
+29,Female,72,115.05,Two year,No
+30,Female,17,64.7,Month-to-month,Yes

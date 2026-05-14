@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Segmentation | Analytics Dashboard</title>
+    <meta name="description" content="Advanced customer segmentation and analytics dashboard.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-glow"></div>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-chart-pie"></i> SegmentsAI
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-page="dashboard"><a href="#" onclick="showPage('dashboard', this)"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li data-page="audiences"><a href="#" onclick="showPage('audiences', this)"><i class="fa-solid fa-users"></i> Audiences</a></li>
+                <li data-page="campaigns"><a href="#" onclick="showPage('campaigns', this)"><i class="fa-solid fa-bullseye"></i> Campaigns</a></li>
+                <li data-page="settings"><a href="#" onclick="showPage('settings', this)"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ===== DASHBOARD PAGE ===== -->
+            <div id="page-dashboard" class="page active-page">
+                <header>
+                    <div>
+                        <h1>Customer Segmentation Overview</h1>
+                        <p>Upload your Customer Data (CSV) to generate AI-driven insights</p>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=c9184a&color=fff" alt="User" class="avatar">
+                    </div>
+                </header>
+
+                <section class="upload-section glass-card">
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="csvFileInput" accept=".csv" class="file-input">
+                        <div class="upload-content">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <h3>Upload Customer CSV Data</h3>
+                            <p>Drag and drop or click to upload your dataset</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="stats-grid" id="statsGrid" style="display: none;">
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Customers</h3>
+                            <p class="stat-value" id="totalCustomers">-</p>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon warning"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="stat-info">
+                            <h3>Churn Rate</h3>
+                            <p class="stat-value" id="churnRate">-</p>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon info"><i class="fa-solid fa-clock"></i></div>
+                        <div class="stat-info">
+                            <h3>Avg Tenure</h3>
+                            <p class="stat-value" id="avgTenure">-</p>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon purple"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="stat-info">
+                            <h3>Avg Monthly Charge</h3>
+                            <p class="stat-value" id="avgCharge">-</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="charts-section" id="chartsSection" style="display: none;">
+                    <div class="glass-card chart-container">
+                        <h2>Customer Segments (By Tenure & Value)</h2>
+                        <div class="canvas-wrapper">
+                            <canvas id="segmentChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-card chart-container">
+                        <h2>Contract Types</h2>
+                        <div class="canvas-wrapper">
+                            <canvas id="contractChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== AUDIENCES PAGE ===== -->
+            <div id="page-audiences" class="page" style="display:none;">
+                <header>
+                    <div>
+                        <h1>Audiences</h1>
+                        <p>View and manage your customer audience segments</p>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=c9184a&color=fff" alt="User" class="avatar">
+                    </div>
+                </header>
+                <div class="info-page glass-card">
+                    <div class="info-icon"><i class="fa-solid fa-users"></i></div>
+                    <h2>Audience Segments</h2>
+                    <p>Upload your CSV on the <strong>Dashboard</strong> to populate audience segments here.</p>
+                    <div class="audience-segments">
+                        <div class="segment-card champions"><i class="fa-solid fa-crown"></i><span>Champions</span><small>High value, long tenure</small></div>
+                        <div class="segment-card loyalists"><i class="fa-solid fa-heart"></i><span>Loyalists</span><small>Mid tenure, stable</small></div>
+                        <div class="segment-card newcust"><i class="fa-solid fa-user-plus"></i><span>New Customers</span><small>Recently joined</small></div>
+                        <div class="segment-card atrisk"><i class="fa-solid fa-triangle-exclamation"></i><span>At Risk</span><small>Churned or likely to churn</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CAMPAIGNS PAGE ===== -->
+            <div id="page-campaigns" class="page" style="display:none;">
+                <header>
+                    <div>
+                        <h1>Campaigns</h1>
+                        <p>Plan and track your customer retention campaigns</p>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=c9184a&color=fff" alt="User" class="avatar">
+                    </div>
+                </header>
+                <div class="info-page glass-card">
+                    <div class="info-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h2>Campaign Manager</h2>
+                    <p>Create targeted campaigns based on your customer segments.</p>
+                    <div class="campaign-list">
+                        <div class="campaign-item glass-card">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <strong>Re-engagement Email</strong>
+                                <small>Target: At Risk customers</small>
+                            </div>
+                            <span class="badge badge-orange">Planned</span>
+                        </div>
+                        <div class="campaign-item glass-card">
+                            <i class="fa-solid fa-gift"></i>
+                            <div>
+                                <strong>Loyalty Reward</strong>
+                                <small>Target: Champions & Loyalists</small>
+                            </div>
+                            <span class="badge badge-green">Active</span>
+                        </div>
+                        <div class="campaign-item glass-card">
+                            <i class="fa-solid fa-tag"></i>
+                            <div>
+                                <strong>Welcome Offer</strong>
+                                <small>Target: New Customers</small>
+                            </div>
+                            <span class="badge badge-purple">Draft</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== SETTINGS PAGE ===== -->
+            <div id="page-settings" class="page" style="display:none;">
+                <header>
+                    <div>
+                        <h1>Settings</h1>
+                        <p>Configure your dashboard preferences</p>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=c9184a&color=fff" alt="User" class="avatar">
+                    </div>
+                </header>
+                <div class="settings-grid">
+                    <div class="glass-card settings-card">
+                        <i class="fa-solid fa-user-circle"></i>
+                        <h3>Profile</h3>
+                        <p>Manage your account details</p>
+                        <div class="setting-row"><label>Name</label><input type="text" value="User" class="setting-input"></div>
+                        <div class="setting-row"><label>Email</label><input type="email" value="user@example.com" class="setting-input"></div>
+                    </div>
+                    <div class="glass-card settings-card">
+                        <i class="fa-solid fa-palette"></i>
+                        <h3>Appearance</h3>
+                        <p>Theme and display settings</p>
+                        <div class="setting-row"><label>Theme</label><select class="setting-input"><option>Dark Red</option><option>Dark Blue</option><option>Dark Purple</option></select></div>
+                        <div class="setting-row"><label>Language</label><select class="setting-input"><option>English</option><option>Hindi</option></select></div>
+                    </div>
+                    <div class="glass-card settings-card">
+                        <i class="fa-solid fa-bell"></i>
+                        <h3>Notifications</h3>
+                        <p>Control alert preferences</p>
+                        <div class="setting-row"><label>Email Alerts</label><input type="checkbox" checked class="setting-toggle"></div>
+                        <div class="setting-row"><label>Churn Alerts</label><input type="checkbox" checked class="setting-toggle"></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        function showPage(page, el) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
+            // Show target page
+            document.getElementById('page-' + page).style.display = 'flex';
+            // Set active nav
+            el.closest('li').classList.add('active');
+        }
+    </script>
+</body>
+</html>
